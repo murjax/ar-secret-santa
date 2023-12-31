@@ -10,6 +10,13 @@ class Invite < ApplicationRecord
     declined: 2
   }
 
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :event
+
+  def ensure_user
+    return if user_id.present? || name.blank? || email.blank?
+
+    create_user(name: name, email: email)
+    save
+  end
 end
