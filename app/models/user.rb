@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # validates_with EmailDomainValidator
+
   validates :name, presence: true
   validates :email, presence: true
 

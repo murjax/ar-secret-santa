@@ -92,8 +92,8 @@ User.where("email LIKE '%.test%'")
 
 # 4. Select events belonging to a specific owner
 user.events
-Event.where(user: user)
-Event.where(user_id: user.id)
+Event.where(owner: user)
+Event.where(owner_id: user.id)
 
 # 5. Select past events
 Event.where('date < ?', Time.now)
@@ -170,7 +170,11 @@ user.destroy # fails
 Event.where(Event.arel_table[:date].lt(Time.now)).destroy_all
 
 # 5. Delete events with no accepted invites
-Event.left_joins(:invites).where('invites.id IS NULL OR invites.status = ?', Invite.statuses[:invited]).distinct.destroy_all
+Event
+.left_joins(:invites)
+.where('invites.id IS NULL OR invites.status = ?', Invite.statuses[:invited])
+.distinct
+.destroy_all
 
 invites_table = Invite.arel_table
 condition = invites_table[:id].eq(nil).or(invites_table[:status].eq(Invite.statuses[:invited]))
