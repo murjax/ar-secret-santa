@@ -32,7 +32,7 @@ puts 'Creating events...'
 events = event_owners.map do |owner|
   Event.create!(
     name: Faker::Lorem.word.capitalize,
-    date: Random.rand(2..10).days.from_now,
+    date: Random.rand(2..10).days.ago,
     send_reminder: true,
     owner: owner
   )
