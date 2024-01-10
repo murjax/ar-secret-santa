@@ -98,9 +98,14 @@ user = User.create(name: Faker::Name.name, email: Faker::Internet.email)
 user.destroy
 
 # 2. Delete events with no invites
-# Produces two SQL statements!
+# Look at the SQL!
 Event
 .left_joins(:invites)
 .where(invites: { id: nil })
-.distinct
 .destroy_all
+
+# Skips callbacks
+Event
+.left_joins(:invites)
+.where(invites: { id: nil })
+.delete_all
