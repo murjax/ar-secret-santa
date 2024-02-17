@@ -33,6 +33,7 @@ events = event_owners.map do |owner|
   Event.create!(
     name: Faker::Lorem.word.capitalize,
     date: Random.rand(2..10).days.ago,
+    fee: Random.rand(40..100),
     send_reminder: true,
     owner: owner
   )
