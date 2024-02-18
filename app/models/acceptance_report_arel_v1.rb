@@ -1,4 +1,4 @@
-class AcceptanceReportArel
+class AcceptanceReportArelV1
   attr_reader :events_table, :invites_table, :pairings_table, :santa_pairings_table, :person_pairings_table
 
   def self.call
@@ -11,6 +11,7 @@ class AcceptanceReportArel
     @pairings_table = Pairing.arel_table
     @santa_pairings_table = @pairings_table.alias('santa_pairings')
     @person_pairings_table = @pairings_table.alias('person_pairings')
+    @query = @events_table
   end
 
   def call
